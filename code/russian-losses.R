@@ -45,7 +45,7 @@ russia_losses_personnel_tidy %>%
                            labels = c("Personnel", "POWs")) +
   annotate(geom = "text",
            x = as.Date(glue("{max(russia_losses_personnel$date)}")),
-           y = max(russia_losses_personnel$personnel) + 200000,
+           y = max(russia_losses_personnel$personnel) + 500000,
            label = glue("{max(russia_losses_personnel$personnel)}"),
            size = 3) +
   labs(x = "",
@@ -56,7 +56,8 @@ russia_losses_personnel_tidy %>%
        subtitle = "POW numbers not reported from 2022-04-27",
        caption = "Data: Armed Forces of Ukraine, Ministry of Defense of Ukraine via Kaggle | Graphic: @weiyuet") +
   theme_classic() +
-  theme(legend.position = c(0.8, 0.6))
+  theme(legend.position = "inside",
+        legend.position.inside = c(0.8, 0.6))
 
 #### Save Image ####
 ggsave("figures/russia-losses-personnel.png",
@@ -88,7 +89,7 @@ russia_losses_equipment_tidy %>%
   facet_wrap(vars(equipment),
              ncol = 3,
              scales = "free") +
-  scale_x_date(date_breaks = "5 months", 
+  scale_x_date(date_breaks = "6 months", 
                labels = label_date_short()) +
   scale_y_continuous(labels = label_number(big.mark = "",
                                            accuracy = 1)) +
@@ -114,7 +115,7 @@ russia_losses_equipment_tidy %>%
   geom_col(colour = "black",
            fill = "gray35") +
   scale_x_continuous(labels = label_number(big.mark = ","),
-                     breaks = seq(0, 28000, 2000),
+                     breaks = seq(0, 55000, 5000),
                      expand = c(0.01, 0)) +
   labs(x = "",
        y = "",
