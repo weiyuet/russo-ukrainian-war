@@ -17,6 +17,7 @@ russia_losses_personnel <- read_csv("data/russia_losses_personnel.csv")
 #### Wrangle ####
 # Data to tidy format
 russia_losses_personnel_tidy <- russia_losses_personnel %>%
+  select(-`personnel*`) %>%
   pivot_longer(cols = c(personnel, POW),
                names_to = "casualties",
                values_to = "value")
@@ -32,13 +33,11 @@ russia_losses_personnel_tidy %>%
   scale_x_date(date_breaks = "3 months",
                labels = label_date_short()) +
   scale_y_log10(breaks = c(0,
-                           300,
+                           10,
+                           100,
                            1000,
-                           3000,
                            10000,
-                           30000,
                            100000,
-                           300000,
                            1000000),
                 labels = label_number(big.mark = ",")) +
   scale_colour_paletteer_d("ggsci::default_jco",
@@ -54,7 +53,7 @@ russia_losses_personnel_tidy %>%
        shape = "",
        title = glue("Russian Casualties (Day {max(russia_losses_personnel$day)}, updated {max(russia_losses_personnel$date)})"),
        subtitle = "POW numbers not reported from 2022-04-27",
-       caption = "Data: Armed Forces of Ukraine, Ministry of Defense of Ukraine via Kaggle | Graphic: @weiyuet") +
+       caption = "Data: Armed Forces of Ukraine, Ministry of Defense of Ukraine | Graphic: @weiyuet") +
   theme_classic() +
   theme(legend.position = "inside",
         legend.position.inside = c(0.8, 0.6))
@@ -62,7 +61,7 @@ russia_losses_personnel_tidy %>%
 #### Save Image ####
 ggsave("figures/russia-losses-personnel.png",
        width = 7,
-       height = 5)
+       height = 8)
 
 #   ____________________________________________________________________________
 #   Russian Equipment Lost                                                  ####
@@ -96,7 +95,7 @@ russia_losses_equipment_tidy %>%
   labs(x = "",
        y = "",
        title = glue("Russian Equipment Lost (Day {max(russia_losses_equipment$day)}, updated {max(russia_losses_equipment$date)})"),
-       caption = "Data: Armed Forces of Ukraine, Ministry of Defense of Ukraine via Kaggle | Graphic: @weiyuet") +
+       caption = "Data: Armed Forces of Ukraine, Ministry of Defense of Ukraine | Graphic: @weiyuet") +
   theme_classic()
 
 #### Save Image ####
@@ -114,16 +113,21 @@ russia_losses_equipment_tidy %>%
              y = equipment)) +
   geom_col(colour = "black",
            fill = "gray35") +
-  scale_x_continuous(labels = label_number(big.mark = ","),
-                     breaks = seq(0, 55000, 5000),
+  scale_x_log10(labels = label_number(big.mark = ","),
+                     breaks = c(0,
+                                10,
+                                100,
+                                1000,
+                                10000,
+                                100000),
                      expand = c(0.01, 0)) +
-  labs(x = "",
+  labs(x = "log scale",
        y = "",
        title = glue("Russian Equipment Lost - Cumulative (Day {max(russia_losses_equipment$day)}, updated {max(russia_losses_equipment$date)})"),
-       caption = "Data: Armed Forces of Ukraine, Ministry of Defense of Ukraine via Kaggle | Graphic: @weiyuet") +
+       caption = "Data: Armed Forces of Ukraine, Ministry of Defense of Ukraine | Graphic: @weiyuet") +
   theme_classic()
 
 #### Save Image ####
 ggsave("figures/russia-losses-equipment-cumulative.png",
-       width = 8,
-       height = 5)
+       width = 7,
+       height = 8)

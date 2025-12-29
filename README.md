@@ -6,7 +6,7 @@ Wong Wei Yuet 2022-05-26
 
   - War casualty data updated weekly from [`Petro Ivanyuk's Kaggle`](https://www.kaggle.com/datasets/piterfm/2022-ukraine-russian-war). All data is official and put together by `Petro`
 
-Updated: 2025-06-05
+Updated: 2025-12-28
 
 ## Summary of Conflict
 
