@@ -25,6 +25,10 @@ russia_losses_personnel_tidy <- russia_losses_personnel %>%
                values_to = "value")
 
 # Plot Data
+# Create right side labels
+label_data <- russia_losses_personnel_tidy %>% 
+  filter(date == max(russia_losses_personnel_tidy$date))
+
 # How many Russian casualties since the beginning of the war?
 russia_losses_personnel_tidy %>%
   drop_na() %>%
@@ -32,6 +36,10 @@ russia_losses_personnel_tidy %>%
              y = value,
              colour = casualties)) +
   geom_step(linewidth = 1.1) +
+  geom_point(data = label_data,
+             aes(x = date,
+                 y = value),
+             show.legend = FALSE) +
   scale_x_date(date_breaks = "3 months",
                labels = label_date_short()) +
   scale_y_log10(breaks = c(0,
@@ -40,21 +48,20 @@ russia_losses_personnel_tidy %>%
                            1000,
                            10000,
                            100000,
-                           1000000),
+                           1000000,
+                           10000000),
                 labels = label_number(big.mark = ",")) +
   scale_colour_paletteer_d("ggsci::default_jco",
-                           labels = c("Personnel", "POWs")) +
+                           labels = c("Personnel", "POWs\nnumbers not reported from 2022-04-27")) +
   annotate(geom = "text",
            x = as.Date(glue("{max(russia_losses_personnel$date)}")),
-           y = max(russia_losses_personnel$personnel) + 500000,
+           y = max(russia_losses_personnel$personnel) - 500000,
            label = glue("{max(russia_losses_personnel$personnel)}"),
            size = 3) +
   labs(x = "",
-       y = "log scale",
+       y = "",
        colour = "",
-       shape = "",
        title = glue("Russian Casualties (Day {max(russia_losses_personnel$day)}, updated {max(russia_losses_personnel$date)})"),
-       subtitle = "POW numbers not reported from 2022-04-27",
        caption = "Data: Armed Forces of Ukraine, Ministry of Defense of Ukraine | Graphic: @weiyuet") +
   theme_classic() +
   theme(legend.position = "inside",
@@ -88,8 +95,7 @@ russia_losses_equipment_tidy <- russia_losses_equipment %>%
 # How many Russian equipment lost since the beginning of the war?
 russia_losses_equipment_tidy %>%
   ggplot(aes(x = date,
-             y = value,
-             colour = equipment)) +
+             y = value)) +
   geom_step(colour = "black") +
   facet_wrap(vars(equipment),
              ncol = 3,
@@ -119,7 +125,7 @@ russia_losses_equipment_tidy %>%
   ggplot(aes(x = cumulative_total,
              y = equipment)) +
   geom_col(colour = "black",
-           fill = "gray35") +
+           fill = "gray40") +
   scale_x_continuous(labels = label_number(big.mark = ","),
                      breaks = seq(0, 100000, 10000),
                      expand = c(0.01, 0)) +
@@ -134,3 +140,5 @@ russia_losses_equipment_tidy %>%
 ggsave("figures/russia-losses-equipment-cumulative.png",
        width = 8,
        height = 8)
+
+# End

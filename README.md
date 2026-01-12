@@ -1,12 +1,12 @@
 # Russo-Ukrainian War
 
-  - First Inspired by [`Lena Sokol's Kaggle`](https://www.kaggle.com/code/sokolheavy/2022-ukraine-russia-war-visualization)
+  - First Inspired by [`Lena Sokol's Kaggle`](https://www.kaggle.com/code/sokolheavy/2022-ukraine-russia-war-visualization).
 
   - War casualty data updated weekly from [`Petro Ivanyuk's Kaggle`](https://www.kaggle.com/datasets/piterfm/2022-ukraine-russian-war). All data is official and put together by `Petro`.
 
 Created: 2022-05-26
 
-Updated: 2026-01-06
+Updated: 2026-01-12
 
 ## Summary of Conflict
 
@@ -21,4 +21,4 @@ The Russo-Ukrainian War is an ongoing war between Russia (together with pro-Russ
 ## Russian Equipment Lost (cumulative)
 ![](https://github.com/weiyuet/russo-ukrainian-war/blob/main/figures/russia-losses-equipment-cumulative.png)
 
-EOL
+End
