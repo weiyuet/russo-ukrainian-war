@@ -34,12 +34,25 @@ russia_losses_personnel_clean <- russia_losses_personnel_raw %>%
 
 # Plot Data
 # Create right side labels
-label_data <- russia_losses_personnel_clean %>%
+label_data_personnel <- russia_losses_personnel_clean %>%
        drop_na() %>%
        filter(date == max(russia_losses_personnel_clean$date))
 
-formatted_plot_number <- format(
-       max(label_data$value),
+formatted_plot_number_personnel <- format(
+       max(label_data_personnel$value),
+       big.mark = ",",
+       scientific = FALSE
+)
+
+russia_losses_pow <- russia_losses_personnel_clean %>%
+       drop_na() %>%
+       filter(casualties == "POW")
+
+label_data_pow <- russia_losses_pow %>%
+       filter(date == max(russia_losses_pow$date))
+
+formatted_plot_number_pow <- format(
+       max(label_data_pow$value),
        big.mark = ",",
        scientific = FALSE
 )
@@ -50,7 +63,12 @@ russia_losses_personnel_clean %>%
        ggplot(aes(x = date, y = value, colour = casualties)) +
        geom_step(linewidth = 1.1) +
        geom_point(
-              data = label_data,
+              data = label_data_pow,
+              aes(x = date, y = value),
+              show.legend = FALSE
+       ) +
+       geom_point(
+              data = label_data_personnel,
               aes(x = date, y = value),
               show.legend = FALSE
        ) +
@@ -68,10 +86,19 @@ russia_losses_personnel_clean %>%
        ) +
        annotate(
               geom = "text",
-              x = as.Date(glue("{max(label_data$date)}")),
-              y = max(label_data$value) - 500000,
-              label = formatted_plot_number,
-              size = 11,
+              x = c(
+                     as.Date(max(label_data_pow$date)) + 50,
+                     as.Date(max(label_data_personnel$date))
+              ),
+              y = c(
+                     max(label_data_pow$value),
+                     max(label_data_personnel$value) - 500000
+              ),
+              label = c(
+                     formatted_plot_number_pow,
+                     formatted_plot_number_personnel
+              ),
+              size = 10,
               size.unit = "pt"
        ) +
        labs(
@@ -145,7 +172,7 @@ russia_losses_equipment_clean %>%
        geom_col(colour = "black", fill = "gray40") +
        scale_x_continuous(
               labels = label_number(big.mark = ","),
-              breaks = seq(0, 100000, 10000),
+              breaks = seq(0, 150000, 10000),
               expand = c(0, 0.05)
        ) +
        labs(
