@@ -2,23 +2,23 @@
 # 2022 Ukraine Russia War #
 ###########################
 
-#### Setup ####
-# Load Libraries
+# 1.0 Setup ----
+# 1.1 Load Libraries ----
 library(tidyverse)
 library(scales)
 library(glue)
 library(paletteer)
 library(jsonlite)
 
-#### Russian Casualties ####
-# Load Data
+# 2.0 Russian Casualties ----
+# 2.1 Load Data ----
 russia_losses_personnel_url <- "https://raw.githubusercontent.com/PetroIvaniuk/2022-Ukraine-Russia-War-Dataset/refs/heads/main/data/russia_losses_personnel.json"
 
 russia_losses_personnel_raw <- russia_losses_personnel_url %>%
        fromJSON(simplifyDataFrame = TRUE) %>%
        as_tibble()
 
-# Prep Data
+# 2.2 Prep Data ----
 # Convert data to appropriate formats and make into tidy format
 russia_losses_personnel_clean <- russia_losses_personnel_raw %>%
        mutate(
@@ -32,7 +32,7 @@ russia_losses_personnel_clean <- russia_losses_personnel_raw %>%
               values_to = "value"
        )
 
-# Plot Data
+# 3.3 Plot Data ----
 # Create right side labels
 label_data_personnel <- russia_losses_personnel_clean %>%
        drop_na() %>%
@@ -119,15 +119,15 @@ russia_losses_personnel_clean %>%
 # Save Image
 ggsave("figures/russia-losses-personnel.png", width = 8, height = 5)
 
-#### Russian Equipment Lost ####
-# Load Data
+# 3.0 Russian Equipment Lost ----
+# 3.1 Load Data ----
 russia_losses_equipment_url <- "https://raw.githubusercontent.com/PetroIvaniuk/2022-Ukraine-Russia-War-Dataset/refs/heads/main/data/russia_losses_equipment.json"
 
 russia_losses_equipment_raw <- russia_losses_equipment_url %>%
        fromJSON(simplifyDataFrame = TRUE) %>%
        as_tibble()
 
-# Prep Data
+# 3.2 Prep Data ----
 # Convert data to appropriate formats and make into tidy format
 russia_losses_equipment_clean <- russia_losses_equipment_raw %>%
        mutate(date = ymd(date), across(.cols = c(2:19), .fns = as.numeric)) %>%
@@ -139,7 +139,7 @@ russia_losses_equipment_clean <- russia_losses_equipment_raw %>%
        ) %>%
        pivot_longer(cols = 3:15, names_to = "equipment", values_to = "value")
 
-# Plot Data
+# 3.3 Plot Data ----
 # How many Russian equipment lost since the beginning of the war?
 russia_losses_equipment_clean %>%
        ggplot(aes(x = date, y = value)) +
@@ -162,7 +162,8 @@ russia_losses_equipment_clean %>%
 # Save Image
 ggsave("figures/russia-losses-equipment.png", width = 8, height = 8)
 
-#### Russian Equipment Lost Cumulatively ####
+# 4.0 Russian Equipment Lost Cumulatively ----
+# 4.1 Plot Data ----
 # How many Russian equipment lost cumulatively since the beginning of the war?
 russia_losses_equipment_clean %>%
        group_by(equipment) %>%

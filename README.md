@@ -2,11 +2,11 @@
 
 Created: 2022-05-26
 
-Updated: 2026-01-24
+Updated: 2026-01-27
 
   - First Inspired by [`Lena Sokol's Kaggle`](https://www.kaggle.com/code/sokolheavy/2022-ukraine-russia-war-visualization).
 
-  - Data source from [`Petro Ivanyuk's Kaggle`](https://www.kaggle.com/datasets/piterfm/2022-ukraine-russian-war). All data is official and put together by `Petro`.
+  - Data from [`Petro Ivanyuk's Kaggle`](https://www.kaggle.com/datasets/piterfm/2022-ukraine-russian-war). All data is official and put together by `Petro`.
 
   - From 2026-01-19, data is read directly from [`Petro Ivanyuk's GitHub`](https://github.com/PetroIvaniuk/2022-Ukraine-Russia-War-Dataset) in JSON format. I will no longer keep a local copy of the CSV data.
 
