@@ -145,7 +145,7 @@ russia_losses_equipment_clean %>%
        ggplot(aes(x = date, y = value)) +
        geom_step(colour = "black") +
        facet_wrap(vars(equipment), ncol = 3, scales = "free") +
-       scale_x_date(date_breaks = "6 months", labels = label_date_short()) +
+       scale_x_date(date_breaks = "12 months", labels = label_date_short()) +
        scale_y_continuous(labels = label_number(big.mark = "", accuracy = 1)) +
        labs(
               title = glue(
