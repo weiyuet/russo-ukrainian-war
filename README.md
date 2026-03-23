@@ -2,7 +2,7 @@
 
 Created: 2022-05-26
 
-Updated: 2026-03-14
+Updated: 2026-03-23
 
   - First Inspired by [`Lena Sokol's Kaggle`](https://www.kaggle.com/code/sokolheavy/2022-ukraine-russia-war-visualization).
 
