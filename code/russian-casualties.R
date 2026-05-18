@@ -137,7 +137,7 @@ russia_losses_equipment_clean <- russia_losses_equipment_raw %>%
               -"fuel tank",
               -"mobile SRBM system"
        ) %>%
-       pivot_longer(cols = 3:15, names_to = "equipment", values_to = "value")
+       pivot_longer(cols = 3:16, names_to = "equipment", values_to = "value")
 
 # 3.3 Plot Data ----
 # How many Russian equipment lost since the beginning of the war?
@@ -173,7 +173,7 @@ russia_losses_equipment_clean %>%
        geom_col(colour = "black", fill = "gray40") +
        scale_x_continuous(
               labels = label_number(big.mark = ","),
-              breaks = seq(0, 120000, 10000),
+              breaks = seq(0, 300000, 50000),
               expand = c(0, 0.05)
        ) +
        labs(
