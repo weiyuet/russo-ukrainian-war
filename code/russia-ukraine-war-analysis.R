@@ -65,9 +65,9 @@ plot_casualty_exploratory <- casualties_df %>%
         scale_x_date(date_breaks = "6 months") +
         scale_y_continuous(labels = label_number(big.mark = ",")) +
         labs(
-                title = "Cumulative Russian Personnel Casualties",
+                title = "Total Reported Russian Casualties from 2022",
                 x = NULL,
-                y = "Total Casualties",
+                y = NULL,
                 caption = shared_caption
         ) +
         base_theme()
@@ -79,7 +79,7 @@ print(plot_casualty_exploratory)
 latest_date <- casualties_df %>% pull(date) %>% max(na.rm = TRUE)
 latest_day <- casualties_df %>% pull(day) %>% max(na.rm = TRUE)
 
-# Isolate latest data point to label on chart
+# Isolate latest data point for plot label
 latest_casualty_metric <- casualties_df %>%
         drop_na(personnel_7d_avg) %>%
         slice_max(order_by = date, n = 1)
@@ -119,10 +119,10 @@ plot_conflict_intensity <- casualties_df %>%
         labs(
                 title = "Intensity of Conflict: Russian Personnel Casualties",
                 subtitle = glue(
-                        "Daily reported losses (gray bars) with 7-day rolling average (red line). (Day {latest_day}, updated {latest_date})"
+                        "Daily reported casualties (gray bars) with 7-day rolling average (red line). (Day {latest_day}, updated {latest_date})"
                 ),
                 x = NULL,
-                y = "Daily Casualties",
+                y = NULL,
                 caption = shared_caption
         ) +
         base_theme()
@@ -162,7 +162,7 @@ casualty_mean <- round(mean(as.matrix(bayes_casualty_model)))
 bayes_casualty_subtitle <-
         glue(
                 "Over the last 90 days, the estimated true mean is {(casualty_mean)} casualties per day.\n",
-                "We are 95% confident that the underlying average falls between {(casualty_ci_lower)} and {(casualty_ci_upper)}. (Day {latest_day}, updated {latest_date})"
+                "95% confident that the underlying average falls between {(casualty_ci_lower)} and {(casualty_ci_upper)}. (Day {latest_day}, updated {latest_date})"
         )
 
 # 4.4 Visualize the Posterior Distribution
@@ -226,6 +226,7 @@ equipment_df <- equipment_url %>%
                                 c("field artillery", "MRL") ~ "Artillery",
                         equipment %in% c("aircraft", "helicopter") ~ "Air",
                         equipment %in% c("naval ship", "submarine") ~ "Sea",
+                        equipment %in% c("drone") ~ "Drone",
                         TRUE ~ "Support/Other"
                 )
         )
@@ -234,13 +235,13 @@ equipment_df <- equipment_url %>%
 plot_equipment_exploratory <- equipment_df %>%
         ggplot(aes(x = date, y = cumulative)) +
         geom_line(color = "#1F77B4", linewidth = 1) +
-        facet_wrap(~equipment, scales = "free_y", ncol = 4) +
+        facet_wrap(vars(str_to_title(equipment)), scales = "free_y", ncol = 4) +
         scale_x_date(date_breaks = "1 year", labels = label_date_short()) +
         scale_y_continuous(
                 labels = label_number(big.mark = ",", accuracy = 1)
         ) +
         labs(
-                title = "Cumulative Russian Equipment Losses by Category",
+                title = "Total Reported Russian Equipment Losses from 2022",
                 x = NULL,
                 y = NULL,
                 caption = shared_caption
@@ -255,10 +256,10 @@ plot_equipment_exploratory <- equipment_df %>%
 
 print(plot_equipment_exploratory)
 
-# 6.0 Plot 3 Shifting War Dynamics (Armor vs Artillery) ----
+# 6.0 Plot 3 Shifting War Dynamics (Armor vs Artillery vs Drones) ----
 # 6.1 Calculating 7-day average losses by Category
 category_trend_df <- equipment_df %>%
-        filter(category %in% c("Armor", "Artillery")) %>%
+        filter(category %in% c("Armor", "Artillery", "Drone")) %>%
         group_by(date, category) %>%
         summarize(
                 daily_category_loss = sum(daily_loss, na.rm = TRUE),
@@ -280,16 +281,17 @@ plot_equipment_shift <- category_trend_df %>%
         ggplot(aes(x = date, y = category_7d_avg, color = category)) +
         geom_line(linewidth = 1.2) +
         scale_x_date(date_breaks = "4 months", labels = label_date_short()) +
+        scale_y_log10(labels = label_number(big.mark = ",")) +
         scale_color_manual(
-                values = c("Armor" = "#1F77B4", "Artillery" = "#D62728")
+                values = c("Armor" = "#1F77B4", "Artillery" = "#D62728", "Drone" = "#FF7F0E")
         ) +
         labs(
-                title = "The Evolution of Warfare: Armor vs. Artillery Losses",
+                title = "The Evolution of Warfare: Armor, Artillery, and Drones",
                 subtitle = glue(
-                        "7-day rolling average of daily losses. Notice shift in early Armor losses to massive Artillery losses in 2025. (Day {latest_day}, updated {latest_date})"
+                        "7-day rolling average daily losses (Log Scale). Shift: Early Armor losses -> Mid-war Artillery dominance -> Late-war Drone parabolics.\n(Day {latest_day}, updated {latest_date})"
                 ),
                 x = NULL,
-                y = "Daily Losses (7-Day Avg)",
+                y = NULL,
                 color = "Equipment",
                 caption = shared_caption
         ) +
@@ -309,7 +311,7 @@ bayes_artillery_model <- stan_glm(
         daily_loss ~ 1,
         data = artillery_90d_df,
         family = gaussian(),
-        prior_intercept = normal(location = 45, scale = 40, autoscale = FALSE),
+        prior_intercept = normal(location = 60, scale = 40, autoscale = FALSE),
         chains = 4,
         iter = 2000,
         seed = 123,
@@ -326,7 +328,7 @@ artillery_mean <- round(mean(as.matrix(bayes_artillery_model)), 1)
 
 bayes_artillery_subtitle <- glue(
         "Over the last 90 days, the estimated true mean is {artillery_mean} artillery pieces lost per day.\n",
-        "We are 95% confident the underlying average falls between {artillery_ci_lower} and {artillery_ci_upper}. (Day {latest_day}, updated {latest_date})"
+        "95% confident the underlying average falls between {artillery_ci_lower} and {artillery_ci_upper}. (Day {latest_day}, updated {latest_date})"
 )
 
 # 7.4 Visualize the Posterior Distribution

@@ -44,7 +44,9 @@ The cumulative number of Russian casualties since the beginning of the war is ov
 
 The cumulative number of Russian equipment loss also shows trends moving up and to the right. Although, I remember that in the initial phases of war, the standout losses were the number of tanks. Now, it's the number of drones.
 
-### Rate-of-Change Analysis
+## Data Analysis
+
+### Casualties
 
 ![](https://github.com/weiyuet/russo-ukrainian-war/blob/main/figures/03-conflict-intensity.png)
 
@@ -55,5 +57,19 @@ The recent 7-day rolling average of daily reported casualties is between 1,000 t
 Adding Bayesian Analysis, the estimated true mean of daily casualties is around 650.
 
 For context, according to declassified [`CIA documents`](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.cia.gov/readingroom/docs/CIA-RDP89T01451R000100090001-5.pdf&ved=2ahUKEwi4_rPtq5uVAxXx2TgGHbDZD5MQFnoECDMQAQ&usg=AOvVaw2N6B0dtQQrrNpRS28ZyCGn), it was estimated that the Soviet Union lost more than 12,000 lives over 10 years (from 1979 to 1989). That means, in roughly 2 weeks, Russian would have lost the same number of soldiers as over 10 years in Afghanistan.
+
+### Equipment
+
+![](https://github.com/weiyuet/russo-ukrainian-war/blob/main/figures/05-equipment-shift.png)
+
+There is a shift in the usage of equipment, from the use of Armor in the early stages of war, followed by the transition to Artillery as conflict transitioned to trench warfare, and the recent parabolic rise in the use of drones.
+
+![](https://github.com/weiyuet/russo-ukrainian-war/blob/main/figures/06-bayes-artillery.png)
+
+From Bayesian Analysis, Russia is losing around 40 field artillery units daily. Is this a sustainable burn rate?
+
+## Final Conclusions
+
+The analysis reveal structural shifts in the conflict. Early war was characterized by heavy use of armor. Then as defense positions and frontlines became more entrenched, artillery came to dominate. Finally, the use of drones has evolved from just merely reconnaissance, to industrialized frontline equipment. Being relatively cheap, and yet lethal, they have effectively replaced artillery for precision frontline strikes.
 
 End
