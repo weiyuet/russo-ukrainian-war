@@ -1,20 +1,20 @@
-# Russian-Ukrainian War
+# Russian-Ukrainian War 2022
 
 Created: 2022-05-26
 
 Updated: 2026-06-23
 
-  - First Inspired by [`Lena Sokol's Kaggle`](https://www.kaggle.com/code/sokolheavy/2022-ukraine-russia-war-visualization).
+  - First Inspired by [`Lena Sokol's Kaggle`](https://www.kaggle.com/code/sokolheavy/2022-ukraine-russia-war-visualization)
 
   - Data sources:
-    - [`Petro Ivanyuk Repository`](https://github.com/PetroIvaniuk/2022-Ukraine-Russia-War-Dataset).
+    - [`Petro Ivanyuk Repository`](https://github.com/PetroIvaniuk/2022-Ukraine-Russia-War-Dataset)
     - [`Armed Forces of Ukraine`](https://www.zsu.gov.ua/en/estimated-enemy-losses)
 
   - From 2026-01-19, data is read directly from [`Petro Ivanyuk's GitHub`](https://github.com/PetroIvaniuk/2022-Ukraine-Russia-War-Dataset) in JSON format. I will no longer keep a local copy of the CSV data.
 
 ## Background of the Conflict
 
-On 24 February, 2022, the Russian Federation launched a full-scale invasion of Ukraine, escalating a conflict that originally began in 2014. What initially started as a swift campaign aimed at decapitating the Ukrainian government quickly devolved into the largest conventional war in Europe since World War II. The conflict has since transitioned through several distinct phases: early mechanized offensives, deep defensive fortifications, and finally, a prolonged war of attrition characterized by trench warfare, use of drones, and massive artillery exchanges [`Institute for the Study of War`](https://understandingwar.org/analysis/russia-ukraine/) 
+On 24 February, 2022, the Russian Federation launched a full-scale invasion of Ukraine, escalating a conflict that originally began in 2014. What initially started as a swift campaign aimed at decapitating the Ukrainian government quickly devolved into the largest conventional war in Europe since World War II. The conflict has since transitioned through several distinct phases: early mechanized offensives, deep defensive fortifications, and finally, a prolonged war of attrition characterized by trench warfare, use of drones, and massive artillery exchanges. [(`Institute for the Study of War`)](https://understandingwar.org/analysis/russia-ukraine/) 
 
 ## Rationale and Evolving Research Direction
 
@@ -26,12 +26,34 @@ When I first started this project in May of 2022, I was merely aggregating, and 
 
 I changed the analysis from cumulative counting to analyzing conflict velocity and quantifying uncertainty with probability.
 
-  - Time-Series & Rate-of-Change: Using daily reported casualty numbers, and calculating a 7-day rolling average to see if the offensive is intensifying or not
+  - Rate-of-Change Analysis: Using daily reported casualty numbers, and calculating a 7-day rolling average to see if the offensive is intensifying or not
   
   - Bayesian Analysis: Data from on-going conflicts is noisy, chaotic and subject to the "fog of war". The accuracy of the data is uncertain, and also depends on the source (with quite different figures). By adding Bayesian Inference, I try to mathematically quantify the uncertainty of the data, and establishing ranges were we are more confident of the numbers.
 
 ## Exploratory Insights
 
 I still used cumulative plots to have a overview of the data, to see if there are any interesting things that stand out. Then, I shifted to the rate-of-change analysis.
+
+### Exploratory Plots
+
+![](https://github.com/weiyuet/russo-ukrainian-war/blob/main/figures/01-casualty-exploratory.png)
+
+The cumulative number of Russian casualties since the beginning of the war is over a million. But, there is limited insight from this chart.
+
+![](https://github.com/weiyuet/russo-ukrainian-war/blob/main/figures/02-equipment-exploratory.png)
+
+The cumulative number of Russian equipment loss also shows trends moving up and to the right. Although, I remember that in the initial phases of war, the standout losses were the number of tanks. Now, it's the number of drones.
+
+### Rate-of-Change Analysis
+
+![](https://github.com/weiyuet/russo-ukrainian-war/blob/main/figures/03-conflict-intensity.png)
+
+The recent 7-day rolling average of daily reported casualties is between 1,000 to 1,500.
+
+![](https://github.com/weiyuet/russo-ukrainian-war/blob/main/figures/04-bayes-casualty.png)
+
+Adding Bayesian Analysis, the estimated true mean of daily casualties is around 650.
+
+For context, according to declassified [`CIA documents`](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.cia.gov/readingroom/docs/CIA-RDP89T01451R000100090001-5.pdf&ved=2ahUKEwi4_rPtq5uVAxXx2TgGHbDZD5MQFnoECDMQAQ&usg=AOvVaw2N6B0dtQQrrNpRS28ZyCGn), it was estimated that the Soviet Union lost more than 12,000 lives over 10 years (from 1979 to 1989). That means, in roughly 2 weeks, Russian would have lost the same number of soldiers as over 10 years in Afghanistan.
 
 End
