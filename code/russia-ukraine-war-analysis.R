@@ -283,7 +283,11 @@ plot_equipment_shift <- category_trend_df %>%
         scale_x_date(date_breaks = "4 months", labels = label_date_short()) +
         scale_y_log10(labels = label_number(big.mark = ",")) +
         scale_color_manual(
-                values = c("Armor" = "#1F77B4", "Artillery" = "#D62728", "Drone" = "#FF7F0E")
+                values = c(
+                        "Armor" = "#1F77B4",
+                        "Artillery" = "#D62728",
+                        "Drone" = "#FF7F0E"
+                )
         ) +
         labs(
                 title = "The Evolution of Warfare: Armor, Artillery, and Drones",

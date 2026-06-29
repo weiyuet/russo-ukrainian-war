@@ -2,7 +2,7 @@
 
 Created: 2022-05-26
 
-Updated: 2026-06-23
+Updated: 2026-06-29
 
   - First Inspired by [`Lena Sokol's Kaggle`](https://www.kaggle.com/code/sokolheavy/2022-ukraine-russia-war-visualization)
 
@@ -70,6 +70,6 @@ From Bayesian Analysis, Russia is losing around 40 field artillery units daily. 
 
 ## Final Conclusions
 
-The analysis reveal structural shifts in the conflict. Early war was characterized by heavy use of armor. Then as defense positions and frontlines became more entrenched, artillery came to dominate. Finally, the use of drones has evolved from just merely reconnaissance, to industrialized frontline equipment. Being relatively cheap, and yet lethal, they have effectively replaced artillery for precision frontline strikes.
+The analysis reveal structural shifts in the conflict. Early war was characterized by heavy use of armor. Then as defense positions and frontlines became more entrenched, artillery came to dominate. Finally, the use of drones has evolved from just merely reconnaissance, to industrialized frontline equipment. Being relatively cheap, and yet lethal, they have effectively replaced artillery for precision frontline strikes. Based on the rate-of-change analysis, the intensity of the conflict is not slowing down.
 
 End
