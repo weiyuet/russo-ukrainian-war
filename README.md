@@ -2,9 +2,9 @@
 
 Created: 2022-05-26
 
-Updated: 2026-06-29
+Updated: 2026-07-03
 
-  - First Inspired by [`Lena Sokol's Kaggle`](https://www.kaggle.com/code/sokolheavy/2022-ukraine-russia-war-visualization)
+  - First Inspired by [`Lena Sokol`](https://www.kaggle.com/code/sokolheavy/2022-ukraine-russia-war-visualization)'s project on Kaggle
 
   - Data sources:
     - [`Petro Ivanyuk Repository`](https://github.com/PetroIvaniuk/2022-Ukraine-Russia-War-Dataset)
@@ -26,13 +26,13 @@ When I first started this project in May of 2022, I was merely aggregating, and 
 
 I changed the analysis from cumulative counting to analyzing conflict velocity and quantifying uncertainty with probability.
 
-  - Rate-of-Change Analysis: Using daily reported casualty numbers, and calculating a 7-day rolling average to see if the offensive is intensifying or not
+  - Rate-of-Change Analysis: Using daily reported casualty numbers, and calculating a 7-day rolling average to see if the offensive is intensifying or not.
   
   - Bayesian Analysis: Data from on-going conflicts is noisy, chaotic and subject to the "fog of war". The accuracy of the data is uncertain, and also depends on the source (with quite different figures). By adding Bayesian Inference, I try to mathematically quantify the uncertainty of the data, and establishing ranges were we are more confident of the numbers.
 
 ## Exploratory Insights
 
-I still used cumulative plots to have a overview of the data, to see if there are any interesting things that stand out. Then, I shifted to the rate-of-change analysis.
+I still used cumulative plots to have a overview of the data. Sometimes just from the cumulative plots, there are interesting things that stand out, like the recent parabolic rise in the number of drones used. Then, I shifted to the rate-of-change analysis, and using Bayesian inference.
 
 ### Exploratory Plots
 
@@ -42,7 +42,7 @@ The cumulative number of Russian casualties since the beginning of the war is ov
 
 ![](https://github.com/weiyuet/russo-ukrainian-war/blob/main/figures/02-equipment-exploratory.png)
 
-The cumulative number of Russian equipment loss also shows trends moving up and to the right. Although, I remember that in the initial phases of war, the standout losses were the number of tanks. Now, it's the number of drones.
+The cumulative number of Russian equipment loss also shows trends moving up and to the right. In the initial phases of war, the standout losses were the number of tanks. Now, it's the number of drones.
 
 ## Data Analysis
 
