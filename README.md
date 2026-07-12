@@ -2,7 +2,7 @@
 
 Created: 2022-05-26
 
-Updated: 2026-07-03
+Updated: 2026-07-13
 
   - First Inspired by [`Lena Sokol`](https://www.kaggle.com/code/sokolheavy/2022-ukraine-russia-war-visualization)'s project on Kaggle
 
@@ -11,6 +11,19 @@ Updated: 2026-07-03
     - [`Armed Forces of Ukraine`](https://www.zsu.gov.ua/en/estimated-enemy-losses)
 
   - From 2026-01-19, data is read directly from [`Petro Ivanyuk's GitHub`](https://github.com/PetroIvaniuk/2022-Ukraine-Russia-War-Dataset) in JSON format. I will no longer keep a local copy of the CSV data.
+
+## Quick Navigation
+
+- [Background of the Conflict](#background-of-the-conflict)
+- [Rationale and Evolving Research Direction](#rationale-and-evolving-research-direction)
+  - [The Problem with Cumulative Data](#the-problem-with-cumulative-data)
+  - [The Methodological Shift(Conflict Velocity & Probability)](#the-methodological-shift-conflict-velocity--probability)
+- [Exploratory Insights](#exploratory-insights)
+  - [Exploratory Plots](#exploratory-plots)
+- [Data Analysis](#data-analysis)
+  - [Casualties](#casualties)
+  - [Equipment](#equipment)
+- [Final Conclusions](#final-conclusions)
 
 ## Background of the Conflict
 
@@ -22,7 +35,7 @@ On 24 February, 2022, the Russian Federation launched a full-scale invasion of U
 
 When I first started this project in May of 2022, I was merely aggregating, and visualizing data cumulatively. While tracking total losses reflects the massive scale of the war, its toll and costs, cumulative charts just trend "up and to the right". After some time, I realized I was not learning anything new from what was going on in the battlefield. I also could not state any conclusions to questions such as, "Should Russia be concerned about their casualty numbers, and their rate of equipment loss?".
 
-### The Methodological Shift (Velocity & Probability)
+### The Methodological Shift (Conflict Velocity & Probability)
 
 I changed the analysis from cumulative counting to analyzing conflict velocity and quantifying uncertainty with probability.
 

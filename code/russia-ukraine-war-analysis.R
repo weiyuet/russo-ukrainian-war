@@ -3,7 +3,7 @@
 ####################################
 
 # 1.0 Setup ----
-# 1.1 Load Libraries
+## 1.1 Load Libraries ----
 library(tidyverse)
 library(jsonlite)
 library(scales)
@@ -12,7 +12,7 @@ library(zoo)
 library(rstanarm)
 library(bayesplot)
 
-# 1.2 Shared plotting configurations
+## 1.2 Shared plotting configurations ----
 base_theme <- function() {
         theme_minimal(base_family = "sans") +
                 theme(
@@ -33,10 +33,10 @@ base_theme <- function() {
                 )
 }
 
-shared_caption <- "Data: Armed Forces of Ukraine | Graphic: @weiyuet"
+shared_caption <- "Data: Armed Forces of Ukraine | Project: https://github.com/weiyuet/russo-ukrainian-war"
 
 # 2.0 Russian Casualties & Analysis ----
-# 2.1 Load casualty data
+## 2.1 Load casualty data ----
 casualties_url <- "https://raw.githubusercontent.com/PetroIvaniuk/2022-Ukraine-Russia-War-Dataset/refs/heads/main/data/russia_losses_personnel.json"
 
 # Type conversion and cleaning
@@ -55,7 +55,8 @@ casualties_df <- casualties_url %>%
                         fill = NA,
                         align = "right"
                 )
-        )
+        ) %>%
+        slice(-1)
 
 # Exploratory plot
 plot_casualty_exploratory <- casualties_df %>%
@@ -130,19 +131,19 @@ plot_conflict_intensity <- casualties_df %>%
 print(plot_conflict_intensity)
 
 # 4.0 Plot 2 Bayesian Analysis of Casualty Rates ----
-# 4.1 Isolate the last 90 days of casualty data
+## 4.1 Isolate the last 90 days of casualty data ----
 recent_90d_df <- casualties_df %>%
         slice_max(order_by = date, n = 90) %>%
         drop_na(daily_personnel)
 
-# 4.2 Fit Bayesian Intercept-Only Model (Estimating the Mean)
+## 4.2 Fit Bayesian Intercept-Only Model (Estimating the Mean) ----
 bayes_casualty_model <- stan_glm(
         daily_personnel ~ 1,
         data = recent_90d_df,
-        family = gaussian(),
+        family = neg_binomial_2(link = "log"),
         prior_intercept = normal(
-                location = 800,
-                scale = 400,
+                location = log(800),
+                scale = 0.5,
                 autoscale = FALSE
         ),
         chains = 4,
@@ -151,24 +152,32 @@ bayes_casualty_model <- stan_glm(
         refresh = 0
 )
 
-# 4.3 Extract the 95% Credible Interval and Estimated Mean for chart subtitle
-casualty_summary <- posterior_interval(bayes_casualty_model, prob = 0.95)
-print(casualty_summary)
+## 4.3 Extract the 95% Credible Interval and Estimated Mean for chart subtitle ----
+casualty_draws_log <- as.matrix(bayes_casualty_model)[, "(Intercept)"]
+casualty_draws_natural <- exp(casualty_draws_log)
 
-casualty_ci_lower <- round(casualty_summary[1, 1])
-casualty_ci_upper <- round(casualty_summary[1, 2])
-casualty_mean <- round(mean(as.matrix(bayes_casualty_model)))
+casualty_mean <- round(mean(casualty_draws_natural), 1)
+casualty_ci <- quantile(casualty_draws_natural, probs = c(0.025, 0.975))
+
+casualty_ci_lower <- round(casualty_ci[1], 1)
+casualty_ci_upper <- round(casualty_ci[2], 1)
+
+natural_scale_casualty_matrix <- matrix(
+        casualty_draws_natural,
+        ncol = 1,
+        dimnames = list(NULL, "Expected Mean Daily Casualties")
+)
 
 bayes_casualty_subtitle <-
         glue(
                 "Over the last 90 days, the estimated true mean is {(casualty_mean)} casualties per day.\n",
-                "95% confident that the underlying average falls between {(casualty_ci_lower)} and {(casualty_ci_upper)}. (Day {latest_day}, updated {latest_date})"
+                "95% probability that the true mean daily casualty rate lies between {(casualty_ci_lower)} and {(casualty_ci_upper)}. (Day {latest_day}, updated {latest_date})"
         )
 
-# 4.4 Visualize the Posterior Distribution
+## 4.4 Visualize the Posterior Distribution ----
 plot_bayes_casualties <- mcmc_areas(
-        as.matrix(bayes_casualty_model),
-        pars = "(Intercept)",
+        natural_scale_casualty_matrix,
+        pars = "Expected Mean Daily Casualties",
         prob = 0.95,
         point_est = "mean"
 ) +
@@ -188,7 +197,7 @@ plot_bayes_casualties <- mcmc_areas(
 print(plot_bayes_casualties)
 
 # 5.0 Equipment Losses & Analysis ----
-# 5.1 Load equipment data
+## 5.1 Load equipment data ----
 equipment_url <- "https://raw.githubusercontent.com/PetroIvaniuk/2022-Ukraine-Russia-War-Dataset/refs/heads/main/data/russia_losses_equipment.json"
 
 equipment_df <- equipment_url %>%
@@ -257,7 +266,7 @@ plot_equipment_exploratory <- equipment_df %>%
 print(plot_equipment_exploratory)
 
 # 6.0 Plot 3 Shifting War Dynamics (Armor vs Artillery vs Drones) ----
-# 6.1 Calculating 7-day average losses by Category
+## 6.1 Calculating 7-day average losses by Category ----
 category_trend_df <- equipment_df %>%
         filter(category %in% c("Armor", "Artillery", "Drone")) %>%
         group_by(date, category) %>%
@@ -304,13 +313,13 @@ plot_equipment_shift <- category_trend_df %>%
 print(plot_equipment_shift)
 
 # 7.0 Plot 4 Bayesian Analysis of Artillery Burn Rate ----
-# 7.1 Isolate last 90 days of field artillery data
+## 7.1 Isolate last 90 days of field artillery data ----
 artillery_90d_df <- equipment_df %>%
         filter(equipment == "field artillery") %>%
         slice_max(order_by = date, n = 90) %>%
         drop_na(daily_loss)
 
-# 7.2 Fit Bayesian Model
+## 7.2 Fit Bayesian Model ----
 bayes_artillery_model <- stan_glm(
         daily_loss ~ 1,
         data = artillery_90d_df,
@@ -322,7 +331,7 @@ bayes_artillery_model <- stan_glm(
         refresh = 0
 )
 
-# 7.3 Extract Intervals and Mean for subtitle
+## 7.3 Extract Intervals and Mean for subtitle ----
 artillery_summary <- posterior_interval(bayes_artillery_model, prob = 0.95)
 print(artillery_summary)
 
@@ -332,10 +341,10 @@ artillery_mean <- round(mean(as.matrix(bayes_artillery_model)), 1)
 
 bayes_artillery_subtitle <- glue(
         "Over the last 90 days, the estimated true mean is {artillery_mean} artillery pieces lost per day.\n",
-        "95% confident the underlying average falls between {artillery_ci_lower} and {artillery_ci_upper}. (Day {latest_day}, updated {latest_date})"
+        "95% probability that the true mean falls between {artillery_ci_lower} and {artillery_ci_upper}. (Day {latest_day}, updated {latest_date})"
 )
 
-# 7.4 Visualize the Posterior Distribution
+## 7.4 Visualize the Posterior Distribution ----
 plot_bayes_artillery <- mcmc_areas(
         as.matrix(bayes_artillery_model),
         pars = "(Intercept)",
