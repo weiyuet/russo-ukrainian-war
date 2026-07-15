@@ -203,7 +203,10 @@ equipment_url <- "https://raw.githubusercontent.com/PetroIvaniuk/2022-Ukraine-Ru
 equipment_df <- equipment_url %>%
         fromJSON(simplifyDataFrame = TRUE) %>%
         as_tibble() %>%
-        mutate(date = ymd(date), across(2:19, as.numeric)) %>%
+        mutate(
+                date = ymd(date),
+                across(-c(date, `greatest losses direction`), as.numeric)
+        ) %>%
         select(
                 -`greatest losses direction`,
                 -`military auto`,
@@ -227,6 +230,7 @@ equipment_df <- equipment_url %>%
                         align = "right"
                 )
         ) %>%
+        slice(-1) %>%
         ungroup() %>%
         mutate(
                 category = case_when(
@@ -323,8 +327,12 @@ artillery_90d_df <- equipment_df %>%
 bayes_artillery_model <- stan_glm(
         daily_loss ~ 1,
         data = artillery_90d_df,
-        family = gaussian(),
-        prior_intercept = normal(location = 60, scale = 40, autoscale = FALSE),
+        family = neg_binomial_2(link = "log"),
+        prior_intercept = normal(
+                location = log(60),
+                scale = 0.5,
+                autoscale = FALSE
+        ),
         chains = 4,
         iter = 2000,
         seed = 123,
@@ -332,12 +340,21 @@ bayes_artillery_model <- stan_glm(
 )
 
 ## 7.3 Extract Intervals and Mean for subtitle ----
-artillery_summary <- posterior_interval(bayes_artillery_model, prob = 0.95)
-print(artillery_summary)
+artillery_draws_log <- as.matrix(bayes_artillery_model)[, "(Intercept)"]
 
-artillery_ci_lower <- round(artillery_summary[1, 1], 1)
-artillery_ci_upper <- round(artillery_summary[1, 2], 1)
-artillery_mean <- round(mean(as.matrix(bayes_artillery_model)), 1)
+artillery_draws_natural <- exp(artillery_draws_log)
+
+artillery_mean <- round(mean(artillery_draws_natural), 1)
+artillery_ci <- quantile(artillery_draws_natural, probs = c(0.025, 0.975))
+
+artillery_ci_lower <- round(artillery_ci[1], 1)
+artillery_ci_upper <- round(artillery_ci[2], 1)
+
+natural_scale_artillery_matrix <- matrix(
+        artillery_draws_natural,
+        ncol = 1,
+        dimnames = list(NULL, "Expected Mean Daily Artillery Losses")
+)
 
 bayes_artillery_subtitle <- glue(
         "Over the last 90 days, the estimated true mean is {artillery_mean} artillery pieces lost per day.\n",
@@ -346,8 +363,8 @@ bayes_artillery_subtitle <- glue(
 
 ## 7.4 Visualize the Posterior Distribution ----
 plot_bayes_artillery <- mcmc_areas(
-        as.matrix(bayes_artillery_model),
-        pars = "(Intercept)",
+        natural_scale_artillery_matrix,
+        pars = "Expected Mean Daily Artillery Losses",
         prob = 0.95,
         point_est = "mean"
 ) +
