@@ -2,7 +2,7 @@
 
 Created: 2022-05-26
 
-Updated: 2026-07-15
+Updated: 2026-07-16
 
   - First Inspired by [`Lena Sokol`](https://www.kaggle.com/code/sokolheavy/2022-ukraine-russia-war-visualization)'s project on Kaggle
 
@@ -18,11 +18,11 @@ Updated: 2026-07-15
 - [Rationale and Evolving Research Direction](#rationale-and-evolving-research-direction)
   - [The Problem with Cumulative Data](#the-problem-with-cumulative-data)
   - [The Methodological Shift (Conflict Velocity & Probability)](#the-methodological-shift-conflict-velocity--probability)
-- [Exploratory Insights](#exploratory-insights)
+- [Initial Data Exploration](#initial-data-exploration)
   - [Exploratory Plots](#exploratory-plots)
 - [Data Analysis](#data-analysis)
   - [Casualties (Is the conflict intensifying?)](#casualties)
-  - [Equipment (Is the equipment burn-rate sustainable?)](#equipment)
+  - [Equipment (Is the equipment burn rate sustainable?)](#equipment)
 - [Final Conclusions](#final-conclusions)
 
 ## Background of the Conflict
@@ -43,7 +43,7 @@ I changed the analysis from cumulative counting to analyzing conflict velocity a
   
   - Bayesian Analysis: Data from on-going conflicts is noisy, chaotic and subject to the "fog of war". The accuracy of the data is uncertain, and also depends on the source (with quite different figures). By adding Bayesian Inference, I can mathematically quantify the uncertainty of the data, and establis ranges were we are more confident of the numbers.
 
-## Exploratory Insights
+## Initial Data Exploration
 
 I still used cumulative plots to have a overview of the data. Sometimes just from the cumulative plots, there are interesting things that stand out, like the recent parabolic rise in the number of drones used. Then, I shifted to the rate-of-change analysis, and using Bayesian inference.
 
@@ -67,9 +67,9 @@ The recent 7-day rolling average of daily reported casualties is between 1,000 t
 
 ![](https://github.com/weiyuet/russo-ukrainian-war/blob/main/figures/04-bayes-casualty.png)
 
-Adding Bayesian Analysis, the estimated true mean of daily casualties is around 650.
+Adding Bayesian Analysis, the estimated true mean of daily casualties is around 1200.
 
-For context, according to declassified [`CIA documents`](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.cia.gov/readingroom/docs/CIA-RDP89T01451R000100090001-5.pdf&ved=2ahUKEwi4_rPtq5uVAxXx2TgGHbDZD5MQFnoECDMQAQ&usg=AOvVaw2N6B0dtQQrrNpRS28ZyCGn), it was estimated that the Soviet Union lost more than 12,000 lives over 10 years (from 1979 to 1989). That means, in roughly 2 weeks, Russian would have lost the same number of soldiers as over 10 years in Afghanistan.
+For context, according to declassified [`CIA documents`](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.cia.gov/readingroom/docs/CIA-RDP89T01451R000100090001-5.pdf&ved=2ahUKEwi4_rPtq5uVAxXx2TgGHbDZD5MQFnoECDMQAQ&usg=AOvVaw2N6B0dtQQrrNpRS28ZyCGn), it was estimated that the Soviet Union lost more than 12,000 lives over 10 years (from 1979 to 1989). That means, every 10 days, Russia would have lost the same number of soldiers as over 10 years in Afghanistan.
 
 ### Equipment
 
@@ -79,7 +79,7 @@ There is a shift in the usage of equipment, from the use of Armor in the early s
 
 ![](https://github.com/weiyuet/russo-ukrainian-war/blob/main/figures/06-bayes-artillery.png)
 
-From Bayesian Analysis, Russia is losing around 40 field artillery units daily. Is this a sustainable burn rate?
+From Bayesian Analysis, Russia is losing around 65 field artillery units daily. Is this a sustainable burn rate?
 
 ## Final Conclusions
 
