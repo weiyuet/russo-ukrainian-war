@@ -69,7 +69,7 @@ The recent 7-day rolling average of daily reported casualties is between 1,000 t
 
 Adding Bayesian Analysis, the estimated true mean of daily casualties is around 1200.
 
-For context, according to declassified [`CIA documents`](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.cia.gov/readingroom/docs/CIA-RDP89T01451R000100090001-5.pdf&ved=2ahUKEwi4_rPtq5uVAxXx2TgGHbDZD5MQFnoECDMQAQ&usg=AOvVaw2N6B0dtQQrrNpRS28ZyCGn), it was estimated that the Soviet Union lost more than 12,000 lives over 10 years (from 1979 to 1989). That means, every 10 days, Russia would have lost the same number of soldiers as over 10 years in Afghanistan.
+For context, according to declassified [`CIA documents`](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.cia.gov/readingroom/docs/CIA-RDP89T01451R000100090001-5.pdf&ved=2ahUKEwi4_rPtq5uVAxXx2TgGHbDZD5MQFnoECDMQAQ&usg=AOvVaw2N6B0dtQQrrNpRS28ZyCGn), during the Soviet-Afghan War, it was estimated that the Soviet Union lost more than 12,000 lives over 10 years (from 1979 to 1989). That means, every 10 days, Russia would have lost the same number of soldiers as over 10 years in Afghanistan.
 
 ### Equipment
 
