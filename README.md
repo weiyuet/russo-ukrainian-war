@@ -2,7 +2,7 @@
 
 Created: 2022-05-26
 
-Updated: 2026-07-13
+Updated: 2026-07-15
 
   - First Inspired by [`Lena Sokol`](https://www.kaggle.com/code/sokolheavy/2022-ukraine-russia-war-visualization)'s project on Kaggle
 
@@ -17,12 +17,12 @@ Updated: 2026-07-13
 - [Background of the Conflict](#background-of-the-conflict)
 - [Rationale and Evolving Research Direction](#rationale-and-evolving-research-direction)
   - [The Problem with Cumulative Data](#the-problem-with-cumulative-data)
-  - [The Methodological Shift(Conflict Velocity & Probability)](#the-methodological-shift-conflict-velocity--probability)
+  - [The Methodological Shift (Conflict Velocity & Probability)](#the-methodological-shift-conflict-velocity--probability)
 - [Exploratory Insights](#exploratory-insights)
   - [Exploratory Plots](#exploratory-plots)
 - [Data Analysis](#data-analysis)
-  - [Casualties](#casualties)
-  - [Equipment](#equipment)
+  - [Casualties (Is the conflict intensifying?)](#casualties)
+  - [Equipment (Is the equipment burn-rate sustainable?)](#equipment)
 - [Final Conclusions](#final-conclusions)
 
 ## Background of the Conflict
@@ -41,7 +41,7 @@ I changed the analysis from cumulative counting to analyzing conflict velocity a
 
   - Rate-of-Change Analysis: Using daily reported casualty numbers, and calculating a 7-day rolling average to see if the offensive is intensifying or not.
   
-  - Bayesian Analysis: Data from on-going conflicts is noisy, chaotic and subject to the "fog of war". The accuracy of the data is uncertain, and also depends on the source (with quite different figures). By adding Bayesian Inference, I try to mathematically quantify the uncertainty of the data, and establishing ranges were we are more confident of the numbers.
+  - Bayesian Analysis: Data from on-going conflicts is noisy, chaotic and subject to the "fog of war". The accuracy of the data is uncertain, and also depends on the source (with quite different figures). By adding Bayesian Inference, I can mathematically quantify the uncertainty of the data, and establis ranges were we are more confident of the numbers.
 
 ## Exploratory Insights
 
