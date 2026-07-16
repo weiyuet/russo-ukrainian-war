@@ -41,7 +41,7 @@ I changed the analysis from cumulative counting to analyzing conflict velocity a
 
   - Rate-of-Change Analysis: Using daily reported casualty numbers, and calculating a 7-day rolling average to see if the offensive is intensifying or not.
   
-  - Bayesian Analysis: Data from on-going conflicts is noisy, chaotic and subject to the "fog of war". The accuracy of the data is uncertain, and also depends on the source (with quite different figures). By adding Bayesian Inference, I can mathematically quantify the uncertainty of the data, and establis ranges were we are more confident of the numbers.
+  - Bayesian Analysis: Data from on-going conflicts is noisy, chaotic and subject to the "fog of war". The accuracy of the data is uncertain, and also depends on the source (with quite different figures). By adding Bayesian Inference, I can mathematically quantify the uncertainty of the data, and establish ranges were we are more confident of the numbers.
 
 ## Initial Data Exploration
 
