@@ -61,8 +61,8 @@ casualties_df <- casualties_url %>%
 # Exploratory plot
 plot_casualty_exploratory <- casualties_df %>%
         ggplot(aes(x = date, y = personnel)) +
-        geom_area(fill = "#D62728", alpha = 0.15) +
-        geom_line(color = "#D62728", linewidth = 1.2) +
+        geom_area(fill = "#1F77B4", alpha = 0.15) +
+        geom_line(color = "#1F77B4", linewidth = 1.2) +
         scale_x_date(date_breaks = "6 months") +
         scale_y_continuous(labels = label_number(big.mark = ",")) +
         labs(
