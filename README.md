@@ -2,7 +2,7 @@
 
 Created: 2022-05-26
 
-Updated: 2026-07-19
+Updated: 2026-07-23
 
   - First Inspired by [`Lena Sokol`](https://www.kaggle.com/code/sokolheavy/2022-ukraine-russia-war-visualization)'s project on Kaggle
 
@@ -33,11 +33,11 @@ On 24 February, 2022, the Russian Federation launched a full-scale invasion of U
 
 ### The Problem with Cumulative Data
 
-When I first started this project in May of 2022, I was merely aggregating, and visualizing data cumulatively. While tracking total losses reflects the massive scale of the war, its toll and costs, cumulative charts just trend "up and to the right". After some time, I realized I was not learning anything new from what was going on in the battlefield. I also could not state any conclusions to questions such as, "Should Russia be concerned about their casualty numbers, and their rate of equipment loss?".
+When I first started this project in May of 2022, I was merely aggregating, and visualizing data cumulatively. While tracking total losses reflects the massive scale of the war, its toll and costs, cumulative charts just trend "up and to the right". After some time, I realized I was not learning anything new from what was going on in the battlefield. I also could not state any conclusions to questions such as, "Should Russia be concerned about their casualty numbers? Is the rate of equipment losses sustainable?".
 
 ### The Methodological Shift (Conflict Velocity & Probability)
 
-I changed the analysis from cumulative counting to analyzing conflict velocity and quantifying uncertainty with probability.
+I changed the analysis from cumulative counting to analyzing conflict velocity and quantifying uncertainty using Bayesian probability.
 
   - Rate-of-Change Analysis: Using daily reported casualty numbers, and calculating a 7-day rolling average to see if the offensive is intensifying or not.
   
@@ -45,7 +45,7 @@ I changed the analysis from cumulative counting to analyzing conflict velocity a
 
 ## Initial Data Exploration
 
-I still used cumulative plots to have a overview of the data. Sometimes just from the cumulative plots, there are interesting things that stand out, like the recent parabolic rise in the number of drones used. Then, I shifted to the rate-of-change analysis, and using Bayesian inference.
+I still used cumulative plots to have a overview of the data. Sometimes just from the cumulative plots, there are interesting things that stand out, like the parabolic rise in the number of drones used since the beginning of 2026.
 
 ### Exploratory Plots
 
@@ -55,7 +55,7 @@ The cumulative number of Russian casualties since the beginning of the war is ov
 
 ![](https://github.com/weiyuet/russo-ukrainian-war/blob/main/figures/02-equipment-exploratory.png)
 
-The cumulative number of Russian equipment loss also shows trends moving up and to the right. In the initial phases of war, the standout losses were the number of tanks. Now, it's the number of drones.
+The cumulative number of Russian equipment loss also shows trends moving up and to the right. In the initial phases of war, the standout losses were the number of tanks. Since the start of 2026, it's the number of drones.
 
 ## Data Analysis
 
@@ -67,9 +67,9 @@ The recent 7-day rolling average of daily reported casualties is between 1,000 t
 
 ![](https://github.com/weiyuet/russo-ukrainian-war/blob/main/figures/04-bayes-casualty.png)
 
-Adding Bayesian Analysis, the estimated true mean of daily casualties is around 1200.
+The estimated true mean of daily casualties is around 1200.
 
-For context, according to declassified [`CIA documents`](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.cia.gov/readingroom/docs/CIA-RDP89T01451R000100090001-5.pdf&ved=2ahUKEwi4_rPtq5uVAxXx2TgGHbDZD5MQFnoECDMQAQ&usg=AOvVaw2N6B0dtQQrrNpRS28ZyCGn), during the Soviet-Afghan War, it was estimated that the Soviet Union lost more than 12,000 lives over 10 years (from 1979 to 1989). That means, every 10 days, Russia would have lost the same number of soldiers as over 10 years in Afghanistan.
+For context, according to declassified [`CIA documents`](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.cia.gov/readingroom/docs/CIA-RDP89T01451R000100090001-5.pdf&ved=2ahUKEwi4_rPtq5uVAxXx2TgGHbDZD5MQFnoECDMQAQ&usg=AOvVaw2N6B0dtQQrrNpRS28ZyCGn), during the Soviet-Afghan War, it was estimated that the Soviet Union lost more than 12,000 lives over 10 years (from 1979 to 1989). That means in the current war, for every 10 days, Russia would have lost the same number of soldiers as over 10 years in Afghanistan.
 
 ### Equipment
 
@@ -79,10 +79,10 @@ There is a shift in the usage of equipment, from the use of Armor in the early s
 
 ![](https://github.com/weiyuet/russo-ukrainian-war/blob/main/figures/06-bayes-artillery.png)
 
-From Bayesian Analysis, Russia is losing around 65 field artillery units daily. Is this a sustainable burn rate?
+Russia is losing around 65 field artillery units daily. Is this a sustainable burn rate?
 
 ## Final Conclusions
 
-The analysis reveal structural shifts in the conflict. Early war was characterized by heavy use of armor. Then as defense positions and frontlines became more entrenched, artillery came to dominate. Finally, the use of drones has evolved from just merely reconnaissance, to industrialized frontline equipment. Being relatively cheap, and yet lethal, they have effectively replaced artillery for precision frontline strikes. Based on the rate-of-change analysis, the intensity of the conflict is not slowing down.
+The analysis reveal structural shifts in the conflict. Early war was characterized by heavy use of armor. Then as defense positions and frontlines became more entrenched, artillery came to dominate. Finally, the use of drones has evolved from just merely reconnaissance, to industrialized frontline equipment. Being relatively cheap, and yet lethal, they have effectively replaced artillery for precision frontline strikes. Based on the rate-of-change analysis, the intensity of the conflict is not slowing down. And there should be concern about the Russian casualty numbers and equipment burn rate.
 
 End
