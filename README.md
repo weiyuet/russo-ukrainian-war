@@ -1,8 +1,11 @@
 # Russian-Ukrainian War 2022
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Stack](https://img.shields.io/badge/Analytics-R%20%7C%20Tidyverse%20%7C%20Time--Series-seagreen)](#)
+
 Created: 2022-05-26
 
-Updated: 2026-07-25
+Updated: 2026-07-29
 
   - First Inspired by [`Lena Sokol`](https://www.kaggle.com/code/sokolheavy/2022-ukraine-russia-war-visualization)'s project on Kaggle
 
@@ -39,13 +42,13 @@ When I first started this project in May of 2022, I was merely aggregating, and 
 
 I changed the analysis from cumulative counting to analyzing conflict velocity and quantifying uncertainty using Bayesian probability.
 
-  - Rate-of-Change Analysis: Using daily reported casualty numbers, and calculating a 7-day rolling average to see if the offensive is intensifying or not.
+  - Rate-of-Change Analysis: By using daily reported casualty numbers, and calculating a 7-day rolling average, we can see if the offensive is intensifying or not.
   
-  - Bayesian Analysis: Data from on-going conflicts is noisy, chaotic and subject to the "fog of war". The accuracy of the data is uncertain, and also depends on the source (with quite different figures). By adding Bayesian Inference, I can mathematically quantify the uncertainty of the data, and establish ranges were we are more confident of the numbers.
+  - Bayesian Analysis: Data from on-going conflicts is noisy, chaotic and subject to the "fog of war". The accuracy of the data is uncertain, and also depends on the source (with quite different figures). Both sides in the conflict also have incentives to inflate or mask the real numbers. All this results in a high uncertainty in the data. By adding Bayesian Inference, I can mathematically quantify the uncertainty of the data, and establish ranges were we are more confident of the numbers.
 
 ## Initial Data Exploration
 
-I still used cumulative plots to have a overview of the data. Sometimes just from the cumulative plots, there are interesting things that stand out, like the parabolic rise in the number of drones used since the beginning of 2026.
+I still used cumulative plots to have a overview of the data. From the cumulative plots, there are already interesting things that stand out, like the parabolic rise in the number of drones used since the beginning of 2026.
 
 ### Exploratory Plots
 
@@ -83,6 +86,6 @@ Russia is losing around 65 field artillery units daily. Is this a sustainable bu
 
 ## Final Conclusions
 
-The analysis reveal structural shifts in the conflict. Early war was characterized by heavy use of armor. Then as defense positions and frontlines became more entrenched, artillery came to dominate. Finally, the use of drones has evolved from just merely reconnaissance, to industrialized frontline equipment. Being relatively cheap, and yet lethal, they have effectively replaced artillery for precision frontline strikes. Based on the rate-of-change analysis, the intensity of the conflict is not slowing down. And there should be concern about the Russian casualty numbers and equipment burn rate.
+The analysis reveal structural shifts in the conflict. Early war was characterized by heavy use of armor in the initial ground offensive that resulted in Russia taking territory quickly. Then as defense positions and frontlines became more entrenched, artillery came to dominate. Finally, the use of drones has evolved from just merely reconnaissance, to industrialized frontline equipment. Being relatively cheap, and yet lethal, they have effectively replaced artillery for precision frontline strikes. Based on the rate-of-change analysis, the intensity of the conflict is not slowing down. Russia can continue the conflict by drawing on a deep pool of manpower, but how long can their high rates of casualties hold, and how sustainable is their equipment burn rate?
 
 End
